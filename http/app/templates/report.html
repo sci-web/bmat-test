@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% block title %} ​AV​ ​works​ ​report {% endblock %}
+{% block head %}
+    {{ super() }}
+{% endblock %}
+{% block content %}
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {       
+        $('#report').dataTable( {
+            "sDom": '<"top"if>rt<"bottom"lp>',            
+            searchHighlight: true,
+            "order": [[0,'asc']],
+            "iDisplayLength": 50,
+            "aLengthMenu": [[50, 100, -1],[50, 100, 500]],
+            "fnDrawCallback": function(oSettings) {
+                if (oSettings._iDisplayLength > oSettings.fnRecordsDisplay()) {
+                    $(oSettings.nTableWrapper).find('.dataTables_paginate').hide();
+                    $(oSettings.nTableWrapper).find('.dataTables_length').hide();
+                }
+            }  
+        } );  
+    } );   
+</script>
+<h4 style="margin:10px"> ​AV​ ​works​ ​report for the period: {{ start }} — {{ end }}</h4>
+<div style="margin:5px 40px 10px 40px;">
+<table id="report" cellspacing="0" cellpadding="0" class="display" style="width:100%; border: 1px solid #ccc; margin:0;">
+  <thead>
+	<tr style="font-weight: bold;">
+		<th></th>
+		<th>Title</th>
+		<th>Release year</th>
+		<th>Broadcasted</th>
+	</tr>
+  </thead>
+  <tbody>	
+{% for entry in items %}
+	<tr class="gradeC">
+		<td>{{ loop.index }}</td>
+		<td>
+            {{ entry.program_original_title }}
+                </td>
+		<td>
+            {{ entry.program_release_year }}
+                </td>
+		<td>
+                    <table cellspacing="0" cellpadding="0" style="margin: 10px 0 0 0" width="95%" class="display dataTable" 
+                        id="t{{ entry._id }}">
+                        <thead>
+                        <tr>
+                            <th style="background-color:#fbf3e8">channel name</th>
+                            <th style="background-color:#fbf3e8">local title</th>
+                            <th style="background-color:#fbf3e8">start time</th>
+                            <th style="background-color:#fbf3e8">duration</th>
+                        </tr>
+                        </thead> 
+                        <tbody>
+                    {% set count = [1] %}    
+                    {% for brd in entry.broadcast %}
+                        <tr style="background:#fcfcfc">
+                        {% if brd.time > start and brd.time < end %}
+                            <td>{{ channels[brd.channel_id] }}</td>
+                            <td>{{ brd.program_local_title }}</td>
+                            <td>{{ brd.time }}</td>
+                            <td>{{ brd.duration }}</td>
+                            {% if count.append(count.pop() + 1) %}{% endif %}                           
+                        {% endif %}
+                        </tr>                      
+                    {% endfor %}
+                    {% if count == [1] %}
+                        <tr><td colspan=4 align=center style="color:darkmagenta">no data for this given period</td></tr>
+                    {% endif %}
+                        </tbody>
+                    </table>
+		</td>
+	</tr>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {     
+        $('#t{{ entry._id }}').DataTable( {
+            retrieve: true,
+            "sDom": '<"top">rt<"bottom"lp><"clear">',
+            "iDisplayLength": 50, 
+            "aLengthMenu": [[50, 100, -1],[50, 100, 500]],
+            "bJQueryUI": true,
+            "fnDrawCallback": function(oSettings) {
+                if (oSettings._iDisplayLength > oSettings.fnRecordsDisplay()) {
+                    $(oSettings.nTableWrapper).find('.dataTables_paginate').hide();
+                    $(oSettings.nTableWrapper).find('.dataTables_length').hide();
+                }
+            }
+        });
+    } );   
+</script>
+{% endfor %}
+    </tbody>
+  <tfoot>
+	<tr style="font-weight: bold;">
+		<th></th>
+		<th>Title</th>
+		<th>Release year</th>
+		<th>Broadcasted</th>
+	</tr>
+  </tfoot>
+</table>
+<br><br>
+</div>
+{% endblock %}
+

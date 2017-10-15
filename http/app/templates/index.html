@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Upload Your Catalogue{% endblock %}
+{% block head %}
+    {{ super() }}
+{% endblock %}
+{% block content %}    
+<div style="margin:5px 40px 10px 40px;">
+<form action="/report" method="POST" name="form" enctype="multipart/form-data" id="client">
+{{ form.hidden_tag() }}
+{{ form.from_url }}
+    Upload your Catalogue file [with TAB-separated columns: title, title_akas, release_year]:
+    <input class="file" type="file" name=catalogue>  
+    <br><br>
+    <button class="btn btn-primary" style="margin-left:402px" type="submit">Submit</button>
+</form>
+<a href=/mus_report>Or see Music​ ​tracking​ ​report​</a>
+</div>
+{% endblock %}
+

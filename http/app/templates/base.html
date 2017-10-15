@@ -1,0 +1,40 @@
+<!doctype html>
+    <title>Reports</title>
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap.css') }}">
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/fileinput.min.css') }}">
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap-select.css') }}">
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/core.css') }}">
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/core-dataTables.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='js/jquery.dataTables.min.css') }}"/>
+        
+        <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-2.1.4.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/datatables.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.highlight.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/dataTables.searchHighlight.min.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/fileinput.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap-select.js') }}"></script>
+<html>
+<body style="background-color: white;">
+{% include "flash.html" %}
+<style>
+.bootstrap-select > .btn {
+    height: 25px;
+    padding: 1px 14px 1px 7px;
+}
+.tdv {vertical-align: top; width: 4%}
+.wrap {
+    font-family: monospace;
+    word-wrap:break-word;
+}
+.paginate_button .current {width:30px;}
+</style>
+<div id="content" padding:10px>{% block content %}{% endblock %}</div>
+<script>
+$(document).ready(function(){
+  $('#show_onload').css('display', 'block');
+  $('#while_loading').css('display', 'none');
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block title %}Music​ ​tracking​ ​report​{% endblock %}
+{% block head %}
+    {{ super() }}
+{% endblock %}
+{% block content %}
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {       
+        $('#report').dataTable( {
+            "sDom": '<"top"if>rt<"bottom"lp><"clear">',
+            searchHighlight: true,
+            "pagingType": "full_numbers",
+            "order": [[0,'asc']],
+            "iDisplayLength": 50,
+            "aLengthMenu": [[50, 100, -1],[50, 100, 500]],
+            "fnDrawCallback": function(oSettings) {
+                if (oSettings._iDisplayLength > oSettings.fnRecordsDisplay()) {
+                    $(oSettings.nTableWrapper).find('.dataTables_paginate').hide();
+                    $(oSettings.nTableWrapper).find('.dataTables_length').hide();
+                }
+            }  
+        } );
+    } );   
+</script>
+<style>
+#show_onload {display: none}
+</style>
+<h4 style="margin:10px">Music​ ​tracking​ ​report​ for the period: {{ start }} — {{ end }}</h4>
+<div style="margin:5px 40px 10px 40px;" id=while_loading>loading data…</div>
+<div style="margin:5px 40px 10px 40px;" id=show_onload>
+<table id="report" cellspacing="0" cellpadding="0" class="display dataTable" style="width:100%; border: 1px solid #ccc; margin:0;">
+  <thead>
+	<tr style="font-weight: bold;">
+		<th></th>
+		<th>Track Title, Artist, Album</th>
+		<th>Appeared</th>
+	</tr>
+  </thead>
+  <tbody>	
+{% for entry in items %}
+	<tr class="gradeC">
+		<td>{{ loop.index }}</td>
+		<td>
+            {{ entry.title }}, {{ entry.artist }}, {{ entry.albom }}
+                </td>
+		<td>
+                    <table cellspacing="0" cellpadding="0" style="margin: 10px 0 0 0" width="95%" class="display dataTable" 
+                        id="t{{ entry._id }}">
+                    <thead>
+                        <tr>
+                            <th style="background-color:#fbf3e8" width=200>channel name</th>
+                            <th style="background-color:#fbf3e8" width=300>local title</th>
+                            <th style="background-color:#fbf3e8" width=200>start time</th>
+                            <th style="background-color:#fbf3e8">duration</th>
+                        </tr>
+                    </thead> 
+                        <tbody>  
+                    {% for brd in entry.appeared %}
+                        <tr style="background:#fcfcfc">
+                        {% if brd.start_time > start and brd.end_time < end %}
+                            <td>{{ channels[brd.channel_id] }}</td>
+                            <td>{{ brd.work }}</td>
+                            <td>{{ brd.start_time }}</td>
+                            <td>{{ brd.duration }}</td>
+                            {% if count.append(count.pop() + 1) %}{% endif %}                           
+                        {% endif %}
+                        </tr>                      
+                    {% endfor %}
+                        </tbody>
+                    </table>
+		</td>
+	</tr>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {     
+        $('#t{{ entry._id }}').DataTable( {
+            retrieve: true,
+            "sDom": '<"top">rt<"bottom"lp><"clear">',
+            "iDisplayLength": 50, 
+            "aLengthMenu": [[50, 100, -1],[50, 100, 500]],
+            "bJQueryUI": true,
+            "fnDrawCallback": function(oSettings) {
+                if (oSettings._iDisplayLength > oSettings.fnRecordsDisplay()) {
+                    $(oSettings.nTableWrapper).find('.dataTables_paginate').hide();
+                    $(oSettings.nTableWrapper).find('.dataTables_length').hide();
+                }
+            }
+        });
+    } );   
+</script>
+{% endfor %}
+</tbody>
+  <tfoot>
+	<tr style="font-weight: bold;">
+		<th></th>
+		<th>Track Title, Artist, Album</th>
+		<th>Appeared</th>
+	</tr>
+  </tfoot>
+</table>
+</div>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('select').selectpicker({
+    size: 3,
+    width: 'fit'
+    });
+});
+</script>
+{% endblock %}
+

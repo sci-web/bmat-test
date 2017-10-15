@@ -1,0 +1,18 @@
+{% for error in get_flashed_messages(with_categories=true, category_filter=["error"]) %}
+<div class="alert alert-dismissable alert-danger" align="center" id="error">
+    <button type="button" class="close" data-dismiss="alert"  onClick = "hideDiv('error');" >&times;</button>
+    {{ error[1] }}
+</div>
+{% endfor %}
+{% for info in get_flashed_messages(with_categories=true, category_filter=["info"]) %}
+<div class="alert alert-dismissable alert-info" align="center" id="info">
+    <button type="button" class="close" data-dismiss="alert" onClick = "hideDiv('info');" >&times;</button>
+    {{ info[1] }}
+</div>
+{% endfor %}
+{% for success in get_flashed_messages(with_categories=true, category_filter=["success"]) %}
+<div class="alert alert-dismissable alert-success" align="center" id="success">
+    <button type="button" class="close" data-dismiss="alert" onClick = "hideDiv('success');" >&times;</button>
+    {{ success[1] }}
+</div>
+{% endfor %}
