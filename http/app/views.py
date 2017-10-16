@@ -19,14 +19,6 @@ def extension_ok(filename, ff):
            filename.rsplit('.', 1)[1] in app.config[ff]
 
 
-def packed(val_dict):
-    # vls = ", ".join(['{}={}'.format(k, v) for k, v in val_dict.iteritems()])
-    ll = []
-    for k, v in val_dict.iteritems():
-        exec(k + " = v")
-        ll.append(k)
-    return ll
-
 
 @app.route('/report', methods=['GET', 'POST'])
 def report():
