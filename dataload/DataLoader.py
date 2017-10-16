@@ -38,7 +38,7 @@ def music(csv):
         for entry in DBcall('epg').findDatalist(query):
             for b in entry["broadcast"]:
                 if b["channel_id"] == row[0] and b["time"] + datetime.timedelta(seconds=b["duration_secs"]) > dt_e and b["time"] < dt_s:
-                    program["work"] = entry["program_local_title"]
+                    program["work"] = entry["program_original_title"]
         udata = {keys[0] : row[0], keys[4] : dt_s, keys[5] : dt_e, keys[6] : duration}
         udata = dict(udata, **program)
         bdata = {"appeared" : [udata]}
