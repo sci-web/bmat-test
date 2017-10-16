@@ -72,4 +72,5 @@ issues and odds:
     → encoded like str.decode('cp1252').encode('utf-8')
 3. column names are to be standardized across different CSV-s
 4. should not be new line symbols within the CSV cells
+5. in epg.csv the original_title sometimes is empty, though can be recovered from local-original titles of other records — did not correct this
 ```
