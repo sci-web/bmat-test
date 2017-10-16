@@ -38,13 +38,13 @@ def music(csv):
         for entry in DBcall('epg').findDatalist(query):
             for b in entry["broadcast"]:
                 if b["channel_id"] == row[0] and b["time"] + datetime.timedelta(seconds=b["duration_secs"]) > dt_e and b["time"] < dt_s:
-                    program["work"] = entry["program_original_title"]
+                    program["work"] = entry["program_local_title"]
         udata = {keys[0] : row[0], keys[4] : dt_s, keys[5] : dt_e, keys[6] : duration}
         udata = dict(udata, **program)
         bdata = {"appeared" : [udata]}
         idata = {keys[1] : row[1].decode('cp1252').encode('utf-8'), keys[2] : row[2].decode('cp1252').encode('utf-8'), keys[3] : row[3].decode('cp1252').encode('utf-8')}
         data = dict(idata, **bdata)
-        if is_match('matches', idata):
+        if is_match('music', idata):
             DBcall('music').updateDatapull(idata, {"appeared" : udata})
         else:
             DBcall('music').loadData([data])
