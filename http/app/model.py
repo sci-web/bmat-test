@@ -16,10 +16,10 @@ class DB(object):
             print e
 
     def get_music_data(self, start, end):
-        return app.config['MUSIC'].find({'$and': 
-            [
-                {"appeared.start_time":{'$gt':start}},{"appeared.end_time":{'$lt':end}}
-            ]
+        return app.config['MUSIC'].find({ "appeared": 
+                { '$elemMatch' : 
+                    { "start_time": { '$gt': start }, "end_time": { '$lt': end } }
+                } 
             })
 
     def get_channel_names(self):
