@@ -4,7 +4,7 @@
 Directory structure:
 ```
 csv:
-    Input CSV data (modified, see section "Issues and odds" below
+    Input CSV data (modified, see section "Issues and odds" below)
 dataload:
     Python code to load CSV data to mongodb
 http:
@@ -19,9 +19,9 @@ db version v3.4.7
 
 Install:
 ```
-from dataload dir run:
+from dataload dir run (mongodb server must be launched with default options):
 python DataLoader.py
-(drop mongo collections epg, music, channels if the above code is to be reran)
+(drop mongo collections epg, music, channels if the above script is rerun)
 
 ```
 
@@ -33,7 +33,8 @@ Run in mongodb shell:
 
 DB structure:
 ```
-Run in mongodb shell:
+Run in mongodb shell ():
+> use bmat
 > show collections
 > db.epg.findOne()
 > db.music.findOne()
