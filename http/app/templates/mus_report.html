@@ -41,7 +41,7 @@
 	<tr class="gradeC">
 		<td>{{ loop.index }}</td>
 		<td>
-            {{ entry.title }}, {{ entry.artist }}, {{ entry.albom }}
+            {{ entry.title }}, {{ entry.artist }}, {{ entry.album }}
                 </td>
 		<td>
                     <table cellspacing="0" cellpadding="0" style="margin: 10px 0 0 0" width="95%" class="display dataTable" 
@@ -54,16 +54,16 @@
                             <th style="background-color:#fbf3e8">duration</th>
                         </tr>
                     </thead> 
-                        <tbody>  
+                        <tbody>
                     {% for brd in entry.appeared %}
-                        <tr style="background:#fcfcfc">
                         {% if brd.start_time > start and brd.end_time < end %}
+                        <tr style="background:#fcfcfc">
                             <td>{{ channels[brd.channel_id] }}</td>
                             <td>{{ brd.work }}</td>
                             <td>{{ brd.start_time }}</td>
                             <td>{{ brd.duration }}</td>
+                        </tr>
                         {% endif %}
-                        </tr>                      
                     {% endfor %}
                         </tbody>
                     </table>

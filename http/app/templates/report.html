@@ -54,21 +54,16 @@
                         </tr>
                         </thead> 
                         <tbody>
-                    {% set count = [1] %}    
                     {% for brd in entry.broadcast %}
-                        <tr style="background:#fcfcfc">
                         {% if brd.time > start and brd.time < end %}
+                        <tr style="background:#fcfcfc">
                             <td>{{ channels[brd.channel_id] }}</td>
                             <td>{{ brd.program_local_title }}</td>
                             <td>{{ brd.time }}</td>
                             <td>{{ brd.duration }}</td>
-                            {% if count.append(count.pop() + 1) %}{% endif %}                           
+                        </tr>
                         {% endif %}
-                        </tr>                      
                     {% endfor %}
-                    {% if count == [1] %}
-                        <tr><td colspan=4 align=center style="color:darkmagenta">no data for this given period</td></tr>
-                    {% endif %}
                         </tbody>
                     </table>
 		</td>
