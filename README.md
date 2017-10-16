@@ -45,7 +45,6 @@ coincidence in channels music broadcasting
 (i.e. when the same music appears on different channels) is included in data structure
 ```
 
-
 HTML Interfaces prerequisites:
 ```
 Flask
@@ -62,8 +61,7 @@ Records by time period filtered on client side
 (also interfaces/code can be updated for clients to choose this period on their own)
 ```
 
-
-issues and odds:
+Issues and odds:
 ```
 1. comma separated CSV-s are bad if there are commas within fields 
     → CSVs are saved as tab separated
