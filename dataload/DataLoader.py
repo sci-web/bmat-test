@@ -15,9 +15,9 @@ def epg(csv):
         dt = datetime.datetime.strptime(dt, '%Y-%m-%d %I:%M:%S %p')
         # print dt
         duration = time.strftime('%H:%M:%S', time.gmtime(int(row[6])))
-        udata = {keys[0] : row[0], keys[6] : duration, "duration_secs" : int(row[6]), "time" : dt, keys[2] : row[2].decode('cp1252').encode('utf-8').title()}
+        udata = {keys[0] : row[0], keys[6] : duration, "duration_secs" : int(row[6]), "time" : dt, keys[2] : row[2].title().decode('cp1252').encode('utf-8')}
         bdata = {"broadcast" : [udata]}
-        idata = {keys[1] : row[1].decode('cp1252').encode('utf-8').title(), keys[3] : row[3]} #  look for matches only by release year & original title
+        idata = {keys[1] : row[1].title().decode('cp1252').encode('utf-8'), keys[3] : row[3]} #  look for matches only by release year & original title
         data = dict(idata, **bdata)
         if is_match('epg', idata):
             DBcall('epg').updateDatapull(idata, {"broadcast" : udata})
@@ -39,6 +39,7 @@ def music(csv):
             for b in entry["broadcast"]:
                 if b["channel_id"] == row[0] and b["time"] + datetime.timedelta(seconds=b["duration_secs"]) > dt_e and b["time"] < dt_s:
                     program["work"] = entry["program_original_title"]
+                    program["work_local"] = b["program_local_title"]
         udata = {keys[0] : row[0], keys[4] : dt_s, keys[5] : dt_e, keys[6] : duration}
         udata = dict(udata, **program)
         bdata = {"appeared" : [udata]}

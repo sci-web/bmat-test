@@ -32,7 +32,9 @@
   <thead>
 	<tr style="font-weight: bold;">
 		<th></th>
-		<th>Track Title, Artist, Album</th>
+		<th>Track Title</th>
+		<th>Artist</th>
+                <th>Album</th>
 		<th>Appeared</th>
 	</tr>
   </thead>
@@ -41,7 +43,13 @@
 	<tr class="gradeC">
 		<td valign=top><br>{{ loop.index }}</td>
 		<td valign=top><br>
-            {{ entry.title }}, {{ entry.artist }}, {{ entry.album }}
+            {{ entry.title }}
+                </td>
+                <td valign=top><br>
+            {{ entry.artist }}
+                </td>
+                <td valign=top><br>
+            {{ entry.album }}
                 </td>
 		<td>
                     <table cellspacing="0" cellpadding="0" style="margin: 10px 0 0 0" width="95%" class="display dataTable" 
@@ -49,7 +57,8 @@
                     <thead>
                         <tr>
                             <th style="background-color:#fbf3e8" width=200>channel name</th>
-                            <th style="background-color:#fbf3e8" width=300>original title</th>
+                            <th style="background-color:#fbf3e8" width=300>original title</th> 
+                            <th style="background-color:#fbf3e8" width=300>local title</th>
                             <th style="background-color:#fbf3e8" width=200>start time</th>
                             <th style="background-color:#fbf3e8">duration</th>
                         </tr>
@@ -60,6 +69,7 @@
                         <tr style="background:#fcfcfc">
                             <td>{{ channels[brd.channel_id] }}</td>
                             <td>{{ brd.work }}</td>
+                            <td>{{ brd.work_local }}</td>
                             <td>{{ brd.start_time }}</td>
                             <td>{{ brd.duration }}</td>
                         </tr>
